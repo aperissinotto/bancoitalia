@@ -1,5 +1,10 @@
 package it.com.perissinotto.bancoitalia.services;
 
-public interface IBancoService {
+import java.util.List;
 
+import it.com.perissinotto.bancoitalia.model.Banco;
+
+public interface IBancoService {
+	public List<Banco> recuperarTodos();
+	public Banco recuperarPorCodigoBanco(int codigoBanco);
 }

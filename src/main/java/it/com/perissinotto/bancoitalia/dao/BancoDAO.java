@@ -1,5 +1,9 @@
 package it.com.perissinotto.bancoitalia.dao;
 
-public interface BancoDAO {
+import org.springframework.data.repository.CrudRepository;
+
+import it.com.perissinotto.bancoitalia.model.Banco;
+
+public interface BancoDAO extends CrudRepository<Banco, Integer> {
 
 }

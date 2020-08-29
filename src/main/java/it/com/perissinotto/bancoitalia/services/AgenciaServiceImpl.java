@@ -19,7 +19,12 @@ public class AgenciaServiceImpl implements IAgenciaService {
 	}
 	
 	@Override
-	public Agencia recuperarPorCodigoAgencia(int codigoAgencia) {
-		return dao.findById(codigoAgencia).get();
+	public Agencia recuperarPorIdAgencia(int idAgencia) {
+		return dao.findById(idAgencia).get();
+	}
+	
+	@Override
+	public void adcionarNovaAgencia(Agencia nova) {
+		dao.save(nova);
 	}
 }

@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "tbl_bancos")
 public class Banco {
 	@Id
-	@Column(name = "codigo_banco")
-	private int codigoBanco;
+	@Column(name = "id_banco")
+	private int idBanco;
 
 	@Column(name = "nome_banco", length = 100)
 	private String nomeBanco;
@@ -27,16 +27,16 @@ public class Banco {
 	@Column(name = "cnpj_banco", length = 14, unique = true)
 	private String cnpjBanco;
 
-	@OneToMany(mappedBy = "codBanco", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("codBanco")
+	@OneToMany(mappedBy = "idBanco", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("idBanco")
 	private List<Agencia> listaAgencias;
 
-	public int getCodigoBanco() {
-		return codigoBanco;
+	public int getIdBanco() {
+		return idBanco;
 	}
 
-	public void setCodigoBanco(int codigoBanco) {
-		this.codigoBanco = codigoBanco;
+	public void setIdBanco(int idBanco) {
+		this.idBanco = idBanco;
 	}
 
 	public String getNomeBanco() {

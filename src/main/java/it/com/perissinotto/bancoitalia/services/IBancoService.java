@@ -6,6 +6,6 @@ import it.com.perissinotto.bancoitalia.model.Banco;
 
 public interface IBancoService {
 	public List<Banco> recuperarTodos();
-	public Banco recuperarPorCodigoBanco(int codigoBanco);
+	public Banco recuperarPorIdBanco(int idBanco);
 	public void adcionarNovoBanco(Banco novo);
 }

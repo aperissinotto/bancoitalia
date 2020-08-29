@@ -25,7 +25,7 @@ public class AgenciaController {
 
 	@GetMapping("/agencia/{codigoAgencia}")
 	public ResponseEntity<Agencia> mostrarPeloCodigoAgencia(@PathVariable int codigoAgencia) {
-		Agencia a = servico.recuperarPorCodigoAgencia(codigoAgencia);
+		Agencia a = servico.recuperarPorIdAgencia(codigoAgencia);
 		if (a != null) {
 			return ResponseEntity.ok(a);
 		}

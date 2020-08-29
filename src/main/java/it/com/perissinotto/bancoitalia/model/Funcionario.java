@@ -1,70 +1,77 @@
 package it.com.perissinotto.bancoitalia.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_funcionarios")
+@Table(name = "tbl_funcionarios")
 public class Funcionario {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_funcionario")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_funcionario")
 	private int idFuncionario;
-	
-	@Column(name="senha_funcionario", length=25)
+
+	@Column(name = "senha_funcionario", length = 25)
 	private String senhaFuncionario;
 
 	@ManyToOne
-	@JsonIgnoreProperties("listaFuncionarios") 
+	@JsonIgnoreProperties("listaFuncionarios")
 	private Agencia agenciaFuncionario;
-	
-	@Column(name="cpf_funcionario", length=11)
+
+	@Column(name = "cpf_funcionario", length = 11)
 	private String cpfFuncionario;
-	
-	@Column(name="nome_funcionario", length=100)
+
+	@Column(name = "nome_funcionario", length = 100)
 	private String nomeFuncionario;
 
-	@Column(name="cargo_funcionario", length=30)
+	@Column(name = "cargo_funcionario", length = 30)
 	private String cargoFuncionario;
-	
-	@Column(name="datanascimento_funcionario")
+
+	@Column(name = "datanascimento_funcionario")
 	private LocalDate dataNascimentoFuncionario;
-	
-	@Column(name="tel_funcionario", length=25)
+
+	@Column(name = "tel_funcionario", length = 25)
 	private String telFuncionario;
 
-	@Column(name="estadocivil_funcionario")
+	@Column(name = "estadocivil_funcionario")
 	private char estadoCivilFuncionario;
 
-	@Column(name="filhos_funcionario")
+	@Column(name = "filhos_funcionario")
 	private int filhosFuncionario;
-	
-	@Column(name="cep_funcionario")
+
+	@Column(name = "cep_funcionario")
 	private String cepFuncionario;
-	
-	@Column(name="endereco_funcionario", length=100)
+
+	@Column(name = "endereco_funcionario", length = 100)
 	private String enderecoFuncionario;
-	
-	@Column(name="cidade_funcionario", length=30)
+
+	@Column(name = "cidade_funcionario", length = 30)
 	private String cidadeFuncionario;
 
-	@Column(name="estado_funcionario", length=2)
+	@Column(name = "estado_funcionario", length = 2)
 	private String estadoFuncionario;
-	
-	@Column(name="email_funcionario", length=100, unique=true)
+
+	@Column(name = "email_funcionario", length = 100, unique = true)
 	private String emailFuncionario;
-	
-	@Column(name="salario_funcionario")
+
+	@Column(name = "salario_funcionario")
 	private double salarioFuncionario;
+
+	@OneToMany(mappedBy = "gerente", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("gerente")
+	private List<Produto> listaProdutos;
 
 	public int getIdFuncionario() {
 		return idFuncionario;
@@ -193,5 +200,13 @@ public class Funcionario {
 	public void setSalarioFuncionario(double salarioFuncionario) {
 		this.salarioFuncionario = salarioFuncionario;
 	}
-	
+
+	public List<Produto> getListaProdutos() {
+		return listaProdutos;
+	}
+
+	public void setListaProdutos(List<Produto> listaProdutos) {
+		this.listaProdutos = listaProdutos;
+	}
+
 }

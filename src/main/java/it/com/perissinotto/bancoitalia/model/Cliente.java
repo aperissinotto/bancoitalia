@@ -3,80 +3,74 @@ package it.com.perissinotto.bancoitalia.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_clientes")
+@Table(name = "tbl_clientes")
 public class Cliente {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_cliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_cliente")
 	private int idCliente;
 
-	@Column(name="senha_cliente", length=25)
+	@Column(name = "senha_cliente", length = 25)
 	private String senhaCliente;
-	
-	@Column(name="cpf_cliente", length=11)
+
+	@Column(name = "cpf_cliente", length = 11)
 	private String cpfCliente;
-	
-	@Column(name="nome_cliente", length=100)
+
+	@Column(name = "nome_cliente", length = 100)
 	private String nomeCliente;
-	
-	@Column(name="datanascimento_cliente")
+
+	@Column(name = "datanascimento_cliente")
 	private LocalDate dataNascimentoCliente;
-	
-	@Column(name="tel_cliente", length=25)
+
+	@Column(name = "tel_cliente", length = 25)
 	private String telCliente;
 
-	@Column(name="estadocivil_cliente")
+	@Column(name = "estadocivil_cliente")
 	private char estadoCivilCliente;
 
-	@Column(name="filhos_cliente")
+	@Column(name = "filhos_cliente")
 	private int filhosCliente;
-	
-	@Column(name="cep_cliente")
+
+	@Column(name = "cep_cliente")
 	private String cepCliente;
-	
-	@Column(name="endereco_cliente", length=100)
+
+	@Column(name = "endereco_cliente", length = 100)
 	private String enderecoCliente;
-	
-	@Column(name="cidade_cliente", length=30)
+
+	@Column(name = "cidade_cliente", length = 30)
 	private String cidadeCliente;
 
-	@Column(name="estado_cliente", length=2)
+	@Column(name = "estado_cliente", length = 2)
 	private String estadoCliente;
-	
-	@Column(name="email_cliente", length=100, unique=true)
-	private String emailCliente;
-	
-	@Column(name="patrimonio_cliente")
-	private double patrimonioCliente;
-	
-	@Column(name="rendimentos_cliente")
-	private double rendimentosCliente;
-	
-	@ManyToOne
-	@JsonIgnoreProperties("listaClientes") 
-	private Agencia agenciaCliente;
 
-	@ManyToMany
-	@JoinTable(name="tbl_produtos_clientes",
-	joinColumns = @JoinColumn(name="id_cliente"),
-	inverseJoinColumns = @JoinColumn(name="id_produto")
-	)
-	@JsonIgnoreProperties("clientes")
-	private List<Produto> produtos;
+	@Column(name = "email_cliente", length = 100, unique = true)
+	private String emailCliente;
+
+	@Column(name = "patrimonio_cliente")
+	private double patrimonioCliente;
+
+	@Column(name = "rendimentos_cliente")
+	private double rendimentosCliente;
+
+	@ManyToMany(mappedBy = "listaClientes", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("listaClientes")
+	private List<Agencia> listaAgencias;
+
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("cliente")
+	private List<Produto> listaProdutos;
 
 	public int getIdCliente() {
 		return idCliente;
@@ -198,20 +192,20 @@ public class Cliente {
 		this.rendimentosCliente = rendimentosCliente;
 	}
 
-	public Agencia getAgenciaCliente() {
-		return agenciaCliente;
+	public List<Agencia> getListaAgencias() {
+		return listaAgencias;
 	}
 
-	public void setAgenciaCliente(Agencia agenciaCliente) {
-		this.agenciaCliente = agenciaCliente;
+	public void setListaAgencias(List<Agencia> listaAgencias) {
+		this.listaAgencias = listaAgencias;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<Produto> getListaProdutos() {
+		return listaProdutos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setListaProdutos(List<Produto> listaProdutos) {
+		this.listaProdutos = listaProdutos;
 	}
-	
+
 }

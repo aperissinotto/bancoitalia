@@ -1,72 +1,77 @@
 package it.com.perissinotto.bancoitalia.model;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="tbl_agencias")
+@Table(name = "tbl_agencias")
 public class Agencia {
 	@Id
-	@Column(name="codigo_agencia")
-	private int codigoAgencia;
+	@Column(name = "id_agencia")
+	private int idAgencia;
 
 	@ManyToOne
-	@JsonIgnoreProperties("listaAgencias") 
-	private Banco codBanco;
+	@JsonIgnoreProperties("listaAgencias")
+	private Banco idBanco;
 
-	@Column(name="nome_agencia", length=100)
+	@Column(name = "nome_agencia", length = 100)
 	private String nomeAgencia;
-	
-	@Column(name="tel_agencia", length=25)
+
+	@Column(name = "tel_agencia", length = 25)
 	private String telAgencia;
 
-	@Column(name="cep_agencia")
+	@Column(name = "cep_agencia")
 	private String cepAgencia;
-	
-	@Column(name="end_agencia", length=100)
+
+	@Column(name = "end_agencia", length = 100)
 	private String endAgencia;
 
-	@Column(name="cidade_agencia", length=30)
+	@Column(name = "cidade_agencia", length = 30)
 	private String cidadeAgencia;
 
-	@Column(name="estado_agencia", length=2)
+	@Column(name = "estado_agencia", length = 2)
 	private String estadoAgencia;
-	
-	@Column(name="email_agencia", length=100, unique=true)
+
+	@Column(name = "email_agencia", length = 100, unique = true)
 	private String emailAgencia;
-	
-	@Column(name="cnpj_agencia", length=14, unique=true)
+
+	@Column(name = "cnpj_agencia", length = 14, unique = true)
 	private String cnpjAgencia;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="agenciaFuncionario")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "agenciaFuncionario")
 	@JsonIgnoreProperties("agenciaFuncionario")
 	private List<Funcionario> listaFuncionarios;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="agenciaCliente")
-	@JsonIgnoreProperties("agenciaCliente")
+	@ManyToMany
+	@JoinTable(name = "tbl_agencias_clientes", joinColumns = @JoinColumn(name = "id_agencia"), inverseJoinColumns = @JoinColumn(name = "id_cliente"))
+	@JsonIgnoreProperties("listaAgencias")
 	private List<Cliente> listaClientes;
 
-	public int getCodigoAgencia() {
-		return codigoAgencia;
+	public int getIdAgencia() {
+		return idAgencia;
 	}
 
-	public void setCodigoAgencia(int codigoAgencia) {
-		this.codigoAgencia = codigoAgencia;
+	public void setIdAgencia(int idAgencia) {
+		this.idAgencia = idAgencia;
 	}
 
-	public Banco getCodBanco() {
-		return codBanco;
+	public Banco getIdBanco() {
+		return idBanco;
 	}
 
-	public void setCodBanco(Banco codBanco) {
-		this.codBanco = codBanco;
+	public void setIdBanco(Banco idBanco) {
+		this.idBanco = idBanco;
 	}
 
 	public String getNomeAgencia() {

@@ -14,7 +14,7 @@ public class AgenciaServiceImpl implements IAgenciaService {
 	private AgenciaDAO dao;
 	
 	@Override
-	public List<Agencia> recuperarTodos() {
+	public List<Agencia> recuperarTodas() {
 		return (List<Agencia>)dao.findAll();
 	}
 	

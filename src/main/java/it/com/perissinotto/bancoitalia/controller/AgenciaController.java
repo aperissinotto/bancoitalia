@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.com.perissinotto.bancoitalia.model.Agencia;
@@ -19,17 +21,27 @@ public class AgenciaController {
 	private IAgenciaService servico;
 
 	@GetMapping("/agencias")
-	public ResponseEntity<List<Agencia>> mostrarTodos() {
-		return ResponseEntity.ok(servico.recuperarTodos());
+	public ResponseEntity<List<Agencia>> mostrarTodas() {
+		return ResponseEntity.ok(servico.recuperarTodas());
 	}
 
-	@GetMapping("/agencia/{codigoAgencia}")
-	public ResponseEntity<Agencia> mostrarPeloCodigoAgencia(@PathVariable int codigoAgencia) {
-		Agencia a = servico.recuperarPorIdAgencia(codigoAgencia);
+	@GetMapping("/agencia/{idAgencia}")
+	public ResponseEntity<Agencia> mostrarPeloIdAgencia(@PathVariable int idAgencia) {
+		Agencia a = servico.recuperarPorIdAgencia(idAgencia);
 		if (a != null) {
 			return ResponseEntity.ok(a);
 		}
 		return ResponseEntity.notFound().build();
+	}
+
+	@PostMapping("/agencia/nova")
+	public ResponseEntity<Agencia> inserirNovaAgencia(@RequestBody Agencia nova) {
+		try {
+			servico.adcionarNovaAgencia(nova);
+			return ResponseEntity.status(201).body(nova);
+		} catch (Exception ex) {
+			return ResponseEntity.status(400).build();
+		}
 	}
 
 }

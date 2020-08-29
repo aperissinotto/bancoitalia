@@ -25,9 +25,9 @@ public class BancoController {
 		return ResponseEntity.ok(servico.recuperarTodos());
 	}
 
-	@GetMapping("/banco/{codigoBanco}")
-	public ResponseEntity<Banco> mostrarPeloCodigoBanco(@PathVariable int codigoBanco) {
-		Banco b = servico.recuperarPorCodigoBanco(codigoBanco);
+	@GetMapping("/banco/{idBanco}")
+	public ResponseEntity<Banco> mostrarPeloIdBanco(@PathVariable int idBanco) {
+		Banco b = servico.recuperarPorIdBanco(idBanco);
 		if (b != null) {
 			return ResponseEntity.ok(b);
 		}

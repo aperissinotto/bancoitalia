@@ -1,5 +1,6 @@
 package it.com.perissinotto.bancoitalia.services;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,10 @@ public class BancoServiceImpl implements IBancoService {
 	public Banco recuperarPorCodigoBanco(int codigoBanco) {
 		return dao.findById(codigoBanco).get();
 	}
+	
+	@Override
+	public void adcionarNovoBanco(Banco novo) {
+		dao.save(novo);
+	}
+	
 }
